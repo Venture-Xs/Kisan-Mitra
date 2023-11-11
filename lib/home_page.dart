@@ -88,8 +88,10 @@ class _HomePageState extends State<HomePage> {
   //List of Widgets
   final pages = [
     const Dashboard(),
-    const ChatBot(),
-    const DetectDisease(),
+    ChatBot(
+      inputString: '',
+    ),
+    const DiseasePrediction(),
     const LoanFinder()
   ];
   int currentPageIndex = 0;

@@ -24,7 +24,7 @@ class OpenAIService {
       final res = await http.get(
         url,
         headers: {
-          'Authorization': 'Bearer $OpenAIKey',
+          'Authorization': 'Bearer $PalmAIKey',
           'Content-Type': 'application/json',
         },
       );
