@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:kisan_mitra_app/Dashboard/dashboard.dart';
+import 'package:kisan_mitra_app/DiseasePrediction/disease_prediction.dart';
+import 'package:kisan_mitra_app/FarmerConsultant/consultant.dart';
+import 'package:kisan_mitra_app/LoanApplication/loan_finder.dart';
 import 'package:kisan_mitra_app/home_page.dart';
+import 'package:kisan_mitra_app/pallete.dart';
 
 void main() {
   runApp(const MyApp());
@@ -12,62 +17,86 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData.light(useMaterial3: true).copyWith(
+        scaffoldBackgroundColor: Pallete.whiteColor,
       ),
-      home: const MyHomePage(
-        title: 'Kisan Mitra',
-      ),
+      home: const HomePage(),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-  final String title;
+// class BottomNavigator extends StatefulWidget {
+//   const BottomNavigator({super.key});
 
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
+//   @override
+//   State<BottomNavigator> createState() => _BottomNavigatorState();
+// }
 
-class _MyHomePageState extends State<MyHomePage> {
-  int _currentIndex = 0;
-  final PageController _pageController = PageController();
-  List<String> _titles = ['Plant disease classifier', 'Kisan Mitra'];
+// class _BottomNavigatorState extends State<BottomNavigator> {
+//   int _currentIndex = 0;
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-          backgroundColor: Theme.of(context).colorScheme.surface,
-          title: Text(
-            _titles[_currentIndex],
-          )),
-      body: PageView(
-        controller: _pageController,
-        children: const <Widget>[HomePage()],
-        onPageChanged: (index) {
-          setState(() {
-            _currentIndex = index;
-          });
-        },
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.camera), label: 'Detect'),
-          BottomNavigationBarItem(icon: Icon(Icons.chat), label: 'Kisan Mitra')
-        ],
-        onTap: (index) {
-          setState(() {
-            _currentIndex = index;
-          });
-          _pageController.animateToPage(index,
-              duration: const Duration(milliseconds: 200),
-              curve: Curves.easeIn);
-        },
-        currentIndex: _currentIndex,
-      ),
-    );
-  }
-}
+//   final PageController _pageController = PageController();
+
+//   final List<String> _titles = [
+//     'Dashboard',
+//     'Agri Consultant',
+//     'Disease Detection',
+//     'Loan',
+//   ];
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(
+//           backgroundColor: Theme.of(context).colorScheme.surface,
+//           title: Text(
+//             _titles[_currentIndex],
+//           )),
+//       body: PageView(
+//         controller: _pageController,
+
+//         //list of main widgets
+//         children: const <Widget>[
+//           DashBoard(),
+//           Consultant(),
+//           DetectDisease(),
+//           LoanFinder()
+//         ],
+//         onPageChanged: (index) {
+//           setState(() {
+//             _currentIndex = index;
+//           });
+//         },
+//       ),
+//       bottomNavigationBar: BottomNavigationBar(
+//         items: const [
+//           BottomNavigationBarItem(
+//               icon: Icon(
+//                 Icons.dashboard,
+//                 color: Pallete.blackColor,
+//               ),
+//               label: 'Home'),
+//           BottomNavigationBarItem(
+//               icon: Icon(Icons.camera, color: Pallete.blackColor),
+//               label: 'Chat'),
+//           BottomNavigationBarItem(
+//               icon: Icon(Icons.chat, color: Pallete.blackColor),
+//               label: 'Disease'),
+//           BottomNavigationBarItem(
+//               icon: Icon(Icons.money, color: Pallete.blackColor),
+//               label: 'Loan'),
+//         ],
+//         onTap: (index) {
+//           setState(() {
+//             _currentIndex = index;
+//           });
+//           _pageController.animateToPage(index,
+//               duration: const Duration(milliseconds: 200),
+//               curve: Curves.easeIn);
+//         },
+//         currentIndex: _currentIndex,
+//       ),
+//     );
+//   }
+// }
