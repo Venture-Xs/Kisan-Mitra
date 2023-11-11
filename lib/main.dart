@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:kisan_mitra_app/Dashboard/dashboard.dart';
-import 'package:kisan_mitra_app/DiseasePrediction/disease_prediction.dart';
-import 'package:kisan_mitra_app/FarmerConsultant/consultant.dart';
-import 'package:kisan_mitra_app/LoanApplication/loan_finder.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+
 import 'package:kisan_mitra_app/home_page.dart';
 import 'package:kisan_mitra_app/pallete.dart';
 
-void main() {
+void main() async {
+  await dotenv.load(fileName: "lib/.env");
   runApp(const MyApp());
 }
 
