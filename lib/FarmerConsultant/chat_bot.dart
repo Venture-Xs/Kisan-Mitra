@@ -5,7 +5,11 @@ import 'package:speech_to_text/speech_recognition_result.dart';
 import 'package:speech_to_text/speech_to_text.dart';
 
 class ChatBot extends StatefulWidget {
-  const ChatBot({Key? key}) : super(key: key);
+  String inputString;
+  ChatBot({
+    Key? key,
+    required this.inputString,
+  }) : super(key: key);
 
   @override
   State<ChatBot> createState() => _ChatBotState();
@@ -29,7 +33,12 @@ class _ChatBotState extends State<ChatBot> {
   void initState() {
     super.initState();
     initspeechtotext();
-    _sendMessage(null);
+    if (widget.inputString.isNotEmpty) {
+      _sendMessage({'role': 'user', 'content': widget.inputString});
+      animateMsg(widget.inputString);
+    } else {
+      _sendMessage(null);
+    }
   }
 
   Future<void> initspeechtotext() async {
@@ -169,8 +178,7 @@ class _ChatBotState extends State<ChatBot> {
             padding: EdgeInsets.all(10),
             child: Row(
               children: [
-                Container(
-                  width: MediaQuery.of(context).size.width * 0.8,
+                Expanded(
                   child: TextField(
                     controller: _controller,
                     decoration: InputDecoration(

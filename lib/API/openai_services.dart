@@ -17,8 +17,8 @@ class OpenAIService {
     try {
       print("Called");
 
-      final url =
-          Uri.parse("https://kisan-mitra-backend.onrender.com/${prompt}");
+      final url = Uri.parse(
+          "https://kisan-mitra-backend.onrender.com/farmer/${prompt}");
       print(url);
 
       final res = await http.get(
