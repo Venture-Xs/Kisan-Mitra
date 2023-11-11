@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kisan_mitra_app/API/openai_services.dart';
+import 'package:kisan_mitra_app/Widgets/feature_box.dart';
 import 'package:kisan_mitra_app/pallete.dart';
 import 'package:speech_to_text/speech_recognition_result.dart';
 import 'package:speech_to_text/speech_to_text.dart';
@@ -135,6 +136,12 @@ class _ChatBotState extends State<ChatBot> {
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
+        FeatureBox(
+          color: Pallete.primaryColor.withOpacity(.1),
+          headerText: 'AI Powered Agriculture Consultant',
+          descText:
+              'AI-powered agriculture and finance assistant in Kisan Mitra is a versatile guide, providing real-time crop analytics, personalized financial insights.',
+        ),
         Expanded(
           child: ListView.builder(
             itemCount: _messages.length,
@@ -152,7 +159,7 @@ class _ChatBotState extends State<ChatBot> {
                     ),
                     decoration: BoxDecoration(
                       color: _messages[index]['role'] == 'bot'
-                          ? Colors.grey[300]
+                          ? Pallete.primaryColor.withOpacity(.1)
                           : Theme.of(context).colorScheme.inversePrimary,
                       borderRadius: _messages[index]['role'] == 'bot'
                           ? const BorderRadius.only(
@@ -166,7 +173,8 @@ class _ChatBotState extends State<ChatBot> {
                     ),
                     child: Text(
                       _messages[index]['content']!,
-                      style: TextStyle(color: Color.fromARGB(255, 77, 3, 89)),
+                      style: const TextStyle(
+                          color: Colors.black, fontFamily: 'Cera Pro'),
                     ),
                   ),
                 ],
@@ -186,7 +194,7 @@ class _ChatBotState extends State<ChatBot> {
                       suffixIcon: IconButton(
                         icon: Icon(
                           Icons.send,
-                          color: Theme.of(context).colorScheme.primary,
+                          color: Pallete.primaryColor,
                         ),
 
                         //Send Message Button On Click
@@ -222,15 +230,14 @@ class _ChatBotState extends State<ChatBot> {
                       ),
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(30),
-                        borderSide: BorderSide(
+                        borderSide: const BorderSide(
                             color: Color.fromARGB(255, 240, 233, 241),
                             width: 2),
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(30),
-                        borderSide: BorderSide(
-                            color: Color.fromARGB(255, 224, 192, 230),
-                            width: 2),
+                        borderSide:
+                            BorderSide(color: Pallete.blackColor, width: 2),
                       ),
                     ),
                   ),
@@ -244,8 +251,11 @@ class _ChatBotState extends State<ChatBot> {
                       borderRadius: BorderRadius.circular(40)),
                   child: IconButton(
                       icon: speechToText.isListening
-                          ? const Icon(Icons.stop)
-                          : const Icon(Icons.mic),
+                          ? const Icon(
+                              Icons.stop,
+                              color: Colors.red,
+                            )
+                          : Icon(Icons.mic, color: Pallete.primaryColor),
                       //Send Voice Message Button On Click
                       onPressed: () async {
                         if (await speechToText.hasPermission &&

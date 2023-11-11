@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:kisan_mitra_app/Dashboard/Components/plants.dart';
+import 'package:kisan_mitra_app/LoanApplication/Components/bank_list.dart';
 import 'package:kisan_mitra_app/pallete.dart';
 import 'package:page_transition/page_transition.dart';
 
@@ -9,11 +9,11 @@ class BankTile extends StatelessWidget {
   const BankTile({
     Key? key,
     required this.index,
-    required this.plantList,
+    required this.BankList,
   }) : super(key: key);
 
   final int index;
-  final List<Plant> plantList;
+  final List<Bank> BankList;
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +42,7 @@ class BankTile extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            //Crop Image over Green Circle
+            //Bank Image over Green Circle
             Stack(
               clipBehavior: Clip.none,
               children: [
@@ -50,7 +50,7 @@ class BankTile extends StatelessWidget {
                   width: 60.0,
                   height: 60.0,
                   decoration: BoxDecoration(
-                    color: Pallete.primaryColor.withOpacity(.8),
+                    color: Pallete.whiteColor.withOpacity(.8),
                     shape: BoxShape.circle,
                   ),
                 ),
@@ -58,22 +58,23 @@ class BankTile extends StatelessWidget {
                   bottom: 5,
                   left: 0,
                   right: 0,
-                  child: SizedBox(
-                    height: 80.0,
-                    child: Image.asset(plantList[index].imageURL),
+                  child: Container(
+                    height: 50.0,
+                    width: 50.0,
+                    child: Image.asset(BankList[index].imageURL),
                   ),
                 ),
 
-                // Crop Category and Name
+                // Rating
                 Positioned(
                   bottom: 5,
                   left: 80,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      //Crop Name
+                      //Bank Name
                       Text(
-                        plantList[index].plantName,
+                        BankList[index].name,
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 18,
@@ -81,25 +82,13 @@ class BankTile extends StatelessWidget {
                         ),
                       ),
 
-                      //Category
-                      Text(plantList[index].category),
+                      //RATING
+                      Text(' Rating' + BankList[index].rating.toString()),
                     ],
                   ),
                 ),
               ],
             ),
-            // Price Detail
-            Container(
-              padding: const EdgeInsets.only(right: 10),
-              child: Text(
-                r'Rs' + plantList[index].price.toString(),
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 18.0,
-                  color: Pallete.primaryColor,
-                ),
-              ),
-            )
           ],
         ),
       ),

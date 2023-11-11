@@ -76,6 +76,11 @@ flutter:
     - assets/sounds/
     - assets/images/cropIcon.png
     - assets/model/
+    - assets/images/bankLogos/hdfc_logo.png
+    - assets/images/bankLogos/sbi_logo.png
+    - assets/images/bankLogos/pnb_logo.png
+    - assets/images/bankLogos/south_logo.png
+    - assets/images/bankLogos/icici.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
