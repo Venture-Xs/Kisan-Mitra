@@ -34,7 +34,7 @@ class AppColors {
 
 class _LineChartSample2State extends State<LineChartSample2> {
   List<Color> gradientColors = [
-    AppColors.contentColorCyan,
+    AppColors.contentColorGreen,
     AppColors.contentColorBlue,
   ];
 

@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:kisan_mitra_app/Dashboard/Components/crop_detail_page.dart';
 
 import 'package:kisan_mitra_app/Dashboard/Components/plants.dart';
 import 'package:kisan_mitra_app/pallete.dart';
 import 'package:page_transition/page_transition.dart';
 
 // A widget to Display Crop Dta
-class CropTile extends StatelessWidget {
-  const CropTile({
+class BankTile extends StatelessWidget {
+  const BankTile({
     Key? key,
     required this.index,
     required this.plantList,
@@ -21,14 +20,11 @@ class CropTile extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
 
     return GestureDetector(
-      //Display Crop Detail Page
       onTap: () {
         Navigator.push(
             context,
             PageTransition(
-                child: CropDetailPage(
-                  plantId: plantList[index].plantId,
-                ),
+                child: const Placeholder(),
                 type: PageTransitionType.bottomToTop));
       },
 
@@ -58,8 +54,6 @@ class CropTile extends StatelessWidget {
                     shape: BoxShape.circle,
                   ),
                 ),
-
-                //crop image
                 Positioned(
                   bottom: 5,
                   left: 0,
