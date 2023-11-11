@@ -9,6 +9,7 @@ import 'package:kisan_mitra_app/API/openai_services.dart';
 
 import 'package:kisan_mitra_app/Dashboard/dashboard.dart';
 import 'package:kisan_mitra_app/DiseasePrediction/disease_prediction.dart';
+import 'package:kisan_mitra_app/FarmerConsultant/chat_bot.dart';
 import 'package:kisan_mitra_app/FarmerConsultant/consultant.dart';
 import 'package:kisan_mitra_app/LoanApplication/loan_finder.dart';
 import 'package:kisan_mitra_app/pallete.dart';
@@ -87,7 +88,7 @@ class _HomePageState extends State<HomePage> {
   //List of Widgets
   final pages = [
     const DashBoard(),
-    const Consultant(),
+    const ChatBot(),
     const DetectDisease(),
     const LoanFinder()
   ];
@@ -172,39 +173,6 @@ class _HomePageState extends State<HomePage> {
             activeIcon: Icon(Icons.account_balance),
           ),
         ],
-      ),
-
-      //Mic
-      floatingActionButton: FloatingActionButton(
-        onPressed: () async {
-          if (await speechToText.hasPermission && speechToText.isNotListening) {
-            await startListening();
-            print('Processing');
-          } else if (speechToText.isListening) {
-            //print(lastWords);
-            final speech = await openAIService.isArtPromptApi(lastWords);
-            print(speech);
-            //if the speech contains https then it is an image
-            if (speech.contains('https')) {
-              generatedImageUrl = speech;
-              generatedContent = null;
-              setState(() {}); //used to store the value in the variable
-            } else {
-              generatedContent = speech;
-              generatedImageUrl = null;
-              setState(() {});
-              // await systemSpeak(speech);
-            }
-            //
-            await stopListening();
-          } else {
-            initspeechtotext();
-          }
-        },
-        backgroundColor: Pallete.firstSuggestionBoxColor,
-        child: Icon(
-          speechToText.isListening ? Icons.stop : Icons.mic,
-        ),
       ),
     );
   }

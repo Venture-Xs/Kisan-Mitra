@@ -5,9 +5,8 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 //importing http for sending and receiving data over the internet
 import 'package:http/http.dart' as http;
-import 'package:kisan_mitra_app/API/secrets.dart';
 
-//'Bearer $dotenv.env[OpenAIKey]'
+// Note: ADD OpenAIKey in a new file called Secrets.dart in the lib folder, create your own API Key from OpenAI
 
 class OpenAIService {
   //List to store conversation history
@@ -16,6 +15,7 @@ class OpenAIService {
   //Function to check if the prompt is an art prompt or not
   Future<String> isArtPromptApi(String prompt) async {
     try {
+      print("Called");
       final res = await http.post(
           Uri.parse("https://api.openai.com/v1/chat/completions"),
           headers: {
