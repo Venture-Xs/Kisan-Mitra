@@ -87,7 +87,7 @@ class _HomePageState extends State<HomePage> {
 
   //List of Widgets
   final pages = [
-    const DashBoard(),
+    const Dashboard(),
     const ChatBot(),
     const DetectDisease(),
     const LoanFinder()

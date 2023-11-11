@@ -1,19 +1,283 @@
+import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:kisan_mitra_app/Dashboard/Components/crop_widget.dart';
+import 'package:kisan_mitra_app/Widgets/linechart.dart';
+import 'package:kisan_mitra_app/pallete.dart';
+import 'package:page_transition/page_transition.dart';
 
-class DashBoard extends StatefulWidget {
-  const DashBoard({super.key});
+import 'Components/plants.dart';
+
+//Main Dashboard
+class Dashboard extends StatefulWidget {
+  const Dashboard({Key? key}) : super(key: key);
 
   @override
-  State<DashBoard> createState() => _DashBoardState();
+  State<Dashboard> createState() => _DashboardState();
 }
 
-class _DashBoardState extends State<DashBoard> {
+class _DashboardState extends State<Dashboard> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: const Align(
-          alignment: Alignment.center,
-          child: Text("Kisan Mitra App Dashboard")),
+    int selectedIndex = 0;
+    Size size = MediaQuery.of(context).size;
+
+    //List of crops
+    List<Plant> _plantList = Plant.plantList;
+
+    //Plants category
+    List<String> _plantTypes = [
+      'Recommended',
+      'Indoor',
+      'Outdoor',
+      'Garden',
+      'Supplement',
+    ];
+
+    //Toggle Favorite button
+    bool toggleIsFavorated(bool isFavorited) {
+      return !isFavorited;
+    }
+
+    return SingleChildScrollView(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          //Search Bar
+          Container(
+            padding: const EdgeInsets.only(top: 20),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 16.0,
+                  ),
+                  width: size.width * .9,
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        Icons.search,
+                        color: Colors.black54.withOpacity(.6),
+                      ),
+                      const Expanded(
+                          child: TextField(
+                        showCursor: false,
+                        decoration: InputDecoration(
+                          hintText: 'Search Plant',
+                          border: InputBorder.none,
+                          focusedBorder: InputBorder.none,
+                        ),
+                      )),
+                      Icon(
+                        Icons.mic,
+                        color: Colors.black54.withOpacity(.6),
+                      ),
+                    ],
+                  ),
+                  decoration: BoxDecoration(
+                    color: Pallete.primaryColor.withOpacity(.1),
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                )
+              ],
+            ),
+          ),
+
+          //Horizontal List of Crops Categories
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 12),
+            height: 50.0,
+            width: size.width,
+            child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: _plantTypes.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: GestureDetector(
+                      onTap: () {
+                        // change list of crops
+                        setState(() {
+                          selectedIndex = index;
+                        });
+                      },
+                      child: Text(
+                        _plantTypes[index],
+                        style: TextStyle(
+                          fontSize: 16.0,
+                          fontWeight: selectedIndex == index
+                              ? FontWeight.bold
+                              : FontWeight.w300,
+                          color: selectedIndex == index
+                              ? Pallete.primaryColor
+                              : Pallete.blackColor,
+                        ),
+                      ),
+                    ),
+                  );
+                }),
+          ),
+
+          //Horizontal List of Crops
+          SizedBox(
+            height: size.height * .3,
+            child: ListView.builder(
+                itemCount: _plantList.length,
+                scrollDirection: Axis.horizontal,
+                itemBuilder: (BuildContext context, int index) {
+                  return GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          PageTransition(
+                              child: const Placeholder(),
+                              type: PageTransitionType.bottomToTop));
+                    },
+
+                    // Design for Favourite Icon
+                    child: Container(
+                      width: 200,
+                      margin: const EdgeInsets.symmetric(horizontal: 10),
+                      child: Stack(
+                        children: [
+                          Positioned(
+                            top: 10,
+                            right: 20,
+                            child: Container(
+                              height: 50,
+                              width: 50,
+                              child: IconButton(
+                                onPressed: () {
+                                  setState(() {
+                                    bool isFavorited = toggleIsFavorated(
+                                        _plantList[index].isFavorated);
+                                    _plantList[index].isFavorated = isFavorited;
+                                  });
+                                },
+                                icon: Icon(
+                                  _plantList[index].isFavorated == true
+                                      ? Icons.favorite
+                                      : Icons.favorite_border,
+                                  color: Pallete.primaryColor,
+                                ),
+                                iconSize: 30,
+                              ),
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(50),
+                              ),
+                            ),
+                          ),
+                          Positioned(
+                            left: 50,
+                            right: 50,
+                            top: 50,
+                            bottom: 50,
+                            child: Image.asset(_plantList[index].imageURL),
+                          ),
+                          Positioned(
+                            bottom: 15,
+                            left: 20,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  _plantList[index].category,
+                                  style: const TextStyle(
+                                    color: Colors.white70,
+                                    fontSize: 16,
+                                  ),
+                                ),
+                                Text(
+                                  _plantList[index].plantName,
+                                  style: const TextStyle(
+                                    color: Colors.white70,
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Positioned(
+                            bottom: 15,
+                            right: 20,
+                            child: Container(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 10, vertical: 2),
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                              child: Text(
+                                r'$' + _plantList[index].price.toString(),
+                                style: TextStyle(
+                                    color: Pallete.primaryColor, fontSize: 16),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      decoration: BoxDecoration(
+                        color: Pallete.primaryColor.withOpacity(.8),
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                    ),
+                  );
+                }),
+          ),
+          Container(
+            padding: const EdgeInsets.only(left: 16, bottom: 20, top: 20),
+            child: const Text(
+              'Top Crops',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 18.0,
+              ),
+            ),
+          ),
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 12),
+            height: size.height * .5,
+            child: ListView.builder(
+                itemCount: _plantList.length,
+                scrollDirection: Axis.vertical,
+                physics: const BouncingScrollPhysics(),
+                itemBuilder: (BuildContext context, int index) {
+                  return GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            PageTransition(
+                                child: const Placeholder(),
+                                type: PageTransitionType.bottomToTop));
+                      },
+                      child: CropTile(index: index, plantList: _plantList));
+                }),
+          ),
+
+          //LineChart
+          Container(
+            padding: const EdgeInsets.only(left: 16, bottom: 20, top: 20),
+            child: Column(
+              children: [
+                const Text(
+                  'Line Chart',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18.0,
+                  ),
+                ),
+
+                //LineChart
+                LineChartSample2()
+              ],
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

@@ -40,6 +40,9 @@ dependencies:
   http: ^0.13.6
   flutter_dotenv: ^5.1.0
   speech_to_text: ^6.1.1
+  chart_sparkline: ^1.0.14
+  page_transition: ^2.1.0
+  fl_chart: ^0.62.0
 
 dev_dependencies:
   flutter_test:
@@ -70,6 +73,7 @@ flutter:
     - lib/.env
     - assets/images/
     - assets/sounds/
+    - assets/images/cropIcon.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
