@@ -3,16 +3,15 @@ import 'package:flutter/material.dart';
 //A package for creating badges. Badges can be used for an additional marker for any widget,
 import 'package:badges/badges.dart' as badges;
 
-//Flutter package for using Iconly Icons.
-import 'package:iconly/iconly.dart';
 import 'package:kisan_mitra_app/API/openai_services.dart';
 
 import 'package:kisan_mitra_app/Dashboard/dashboard.dart';
 import 'package:kisan_mitra_app/DiseasePrediction/disease_prediction.dart';
+import 'package:kisan_mitra_app/DrawerIcon/drawer.dart';
 import 'package:kisan_mitra_app/FarmerConsultant/chat_bot.dart';
-import 'package:kisan_mitra_app/FarmerConsultant/consultant.dart';
+
 import 'package:kisan_mitra_app/LoanApplication/loan_finder.dart';
-import 'package:kisan_mitra_app/pallete.dart';
+
 import 'package:speech_to_text/speech_recognition_result.dart';
 import 'package:speech_to_text/speech_to_text.dart';
 
@@ -101,13 +100,12 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
-      drawer: const Drawer(),
+
+      //Drawer Button
+      drawer: const DrawerPage(),
+
       appBar: AppBar(
         centerTitle: false,
-        leading: IconButton(
-          onPressed: () {},
-          icon: const Icon(Icons.menu),
-        ),
         title: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
