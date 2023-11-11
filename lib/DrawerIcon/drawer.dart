@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:kisan_mitra_app/ProfilePage/editprofilepage.dart';
+import 'package:kisan_mitra_app/ProfilePage/profillepage.dart';
+import 'package:page_transition/page_transition.dart';
 
 class DrawerPage extends StatefulWidget {
   const DrawerPage({super.key});
@@ -41,37 +44,41 @@ class _DrawerPageState extends State<DrawerPage> {
             leading: const Icon(Icons.person),
             title: const Text(' My Profile '),
             onTap: () {
-              Navigator.pop(context);
+              Navigator.push(
+                  context,
+                  PageTransition(
+                      child: ProfileScreen(),
+                      type: PageTransitionType.bottomToTop));
             },
           ),
+
+          ListTile(
+            leading: const Icon(Icons.edit),
+            title: const Text(' Edit Profile '),
+            onTap: () {
+              Navigator.push(
+                  context,
+                  PageTransition(
+                      child: EditProfileScreen(),
+                      type: PageTransitionType.bottomToTop));
+            },
+          ),
+
           ListTile(
             leading: const Icon(Icons.book),
-            title: const Text(' My Course '),
+            title: const Text(' My CIBIL Score '),
             onTap: () {
               Navigator.pop(context);
             },
           ),
           ListTile(
             leading: const Icon(Icons.workspace_premium),
-            title: const Text(' Go Premium '),
+            title: const Text(' Government Schemes '),
             onTap: () {
               Navigator.pop(context);
             },
           ),
-          ListTile(
-            leading: const Icon(Icons.video_label),
-            title: const Text(' Saved Videos '),
-            onTap: () {
-              Navigator.pop(context);
-            },
-          ),
-          ListTile(
-            leading: const Icon(Icons.edit),
-            title: const Text(' Edit Profile '),
-            onTap: () {
-              Navigator.pop(context);
-            },
-          ),
+
           ListTile(
             leading: const Icon(Icons.logout),
             title: const Text('LogOut'),

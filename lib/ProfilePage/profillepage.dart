@@ -13,46 +13,25 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<dynamic>(builder: (context, snapshot) {
-      // if (snapshot.hasData == false) {
-      //   return SizedBox(
-      //     height: MediaQuery.of(context).size.height,
-      //     child: Column(
-      //       mainAxisAlignment: MainAxisAlignment.center,
-      //       crossAxisAlignment: CrossAxisAlignment.center,
-      //       children: [
-      //         Center(
-      //             child: Column(children: [
-      //           CircularProgressIndicator(),
-      //           SizedBox(
-      //             height: 10,
-      //           ),
-      //           Text(
-      //             "Loading Profile",
-      //             style: TextStyle(fontSize: 15, fontWeight: FontWeight.w400),
-      //           ),
-      //         ])),
-      //       ],
-      //     ),
-      //   );
-      // }
-      return Column(
-        children: [
-          Container(
-            width: double.infinity,
-            child: Column(
-              children: [
-                Container(
-                  padding: EdgeInsets.fromLTRB(20, 50, 20, 25),
-                  decoration: BoxDecoration(
-                    color: Color.fromRGBO(125, 223, 100, 0.2),
-                    border: Border(
-                      bottom: BorderSide(
-                        color: Color.fromARGB(255, 73, 159, 105),
-                        width: 2,
-                      ),
+    return Scaffold(
+        body: Column(
+      children: [
+        Container(
+          width: double.infinity,
+          child: Column(
+            children: [
+              Container(
+                padding: EdgeInsets.fromLTRB(20, 50, 20, 25),
+                decoration: BoxDecoration(
+                  color: Color.fromRGBO(125, 223, 100, 0.2),
+                  border: Border(
+                    bottom: BorderSide(
+                      color: Color.fromARGB(255, 73, 159, 105),
+                      width: 2,
                     ),
                   ),
+                ),
+                child: SingleChildScrollView(
                   child: Column(
                     children: [
                       Row(
@@ -80,7 +59,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 height: 10,
                               ),
                               Text(
-                                "Name",
+                                "Anish Pillai",
                                 style: TextStyle(
                                     fontSize: 20,
                                     fontWeight: FontWeight.w400,
@@ -90,7 +69,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 height: 4,
                               ),
                               Text(
-                                "Age",
+                                "22",
                                 style: TextStyle(
                                     fontSize: 15,
                                     fontWeight: FontWeight.w400,
@@ -100,7 +79,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 height: 4,
                               ),
                               Text(
-                                "Phone Number",
+                                "9497445614",
                                 style: TextStyle(
                                     fontSize: 15,
                                     fontWeight: FontWeight.w400,
@@ -112,83 +91,52 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       ),
                     ],
                   ),
-                )
-              ],
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(0, 10, 20, 0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                TextButton(
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => EditProfileScreen()));
-                    },
-                    child: Row(
-                      children: [
-                        Icon(Icons.edit),
-                        Text(
-                          "Edit Profile",
-                          style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.w400,
-                              color: Color(0xff008A00)),
-                        )
-                      ],
-                    ))
-              ],
-            ),
-          ),
-          SizedBox(
-            height: 20,
-          ),
-          MenuItem(
-              title: "Blood Group",
-              description: snapshot.data.blood_group.toString()),
-          SizedBox(
-            height: 20,
-          ),
-          MenuItem(
-              title: "Medications",
-              description: snapshot.data.medications.toString()),
-          SizedBox(
-            height: 20,
-          ),
-          MenuItem(
-            title: "Hereditary Diseases",
-            description: snapshot.data.herditary.toString(),
-          ),
-          SizedBox(
-            height: 20,
-          ),
-          InkWell(
-            onTap: () {
-              //To do
-            },
-            child: Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(50),
-                color: Color.fromARGB(255, 226, 72, 51),
-              ),
-              width: MediaQuery.of(context).size.width * 0.3,
-              height: 50,
-              child: Center(
-                child: Text(
-                  "Log Out",
-                  style: TextStyle(
-                      fontSize: 16,
-                      color: Color.fromARGB(255, 251, 255, 255),
-                      fontWeight: FontWeight.w800),
                 ),
-              ),
-            ),
+              )
+            ],
           ),
-        ],
-      );
-    });
+        ),
+        SizedBox(
+          height: 20,
+        ),
+        MenuItem(title: "Location", description: "Assam"),
+        SizedBox(
+          height: 20,
+        ),
+        MenuItem(title: "Land Area", description: "1 hactare"),
+        SizedBox(
+          height: 20,
+        ),
+        MenuItem(
+          title: "Total Asset Worth",
+          description: "Rs 20 lakhs",
+        ),
+        SizedBox(
+          height: 20,
+        ),
+        MenuItem(
+          title: "Annual Income",
+          description: "Rs  1 lakhs",
+        ),
+        SizedBox(
+          height: 20,
+        ),
+        MenuItem(
+          title: "Crops Cultivated",
+          description: "Rice, Wheat, Maize",
+        ),
+        SizedBox(
+          height: 20,
+        ),
+        MenuItem(
+          title: "Government Schemes Availed ",
+          description:
+              "Pradhan Mantri Kisan Samman Nidhi, Unique package for farmers",
+        ),
+        SizedBox(
+          height: 20,
+        ),
+      ],
+    ));
   }
 }
