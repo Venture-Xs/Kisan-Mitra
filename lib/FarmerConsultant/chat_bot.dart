@@ -92,6 +92,36 @@ class _ChatBotState extends State<ChatBot> {
     _controller.clear();
   }
 
+  Future<String> animateMsg(String text) async {
+    // Add a loading message
+    setState(() {
+      _messages.add({
+        'role': 'bot',
+        'content': 'Loading...',
+      });
+    });
+
+    try {
+      // Wait for the Future to complete
+      final speech = await openAIService.isArtPromptApi(text);
+
+      // Once the Future is complete, remove the loading message and add new
+      setState(() {
+        _messages.removeLast();
+        _messages.add({
+          'role': 'bot',
+          'content': speech,
+        });
+      });
+
+      return speech;
+    } catch (e) {
+      // Handle any errors here
+      print('Caught error: $e');
+      throw 'An Error Occured';
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -153,11 +183,12 @@ class _ChatBotState extends State<ChatBot> {
 
                         //Send Message Button On Click
                         onPressed: () async {
-                          _sendMessage(
-                              {'role': 'user', 'content': _controller.text});
-
-                          final speech = await openAIService
-                              .isArtPromptApi(_controller.text);
+                          if (_controller.text.isEmpty) {
+                            return;
+                          } else {}
+                          String text = _controller.text;
+                          _sendMessage({'role': 'user', 'content': text});
+                          final speech = await animateMsg(text);
                           print(speech);
 
                           //if the speech contains https then it is an image
@@ -170,8 +201,8 @@ class _ChatBotState extends State<ChatBot> {
                             generatedContent = speech;
                             generatedImageUrl = null;
 
-                            _sendMessage(
-                                {'role': 'bot', 'content': generatedContent!});
+                            // _sendMessage(
+                            //     {'role': 'bot', 'content': generatedContent!});
                           }
                         },
                       ),
