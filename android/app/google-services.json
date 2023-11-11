@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "67145120349",
+    "project_id": "price-fc48a",
+    "storage_bucket": "price-fc48a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:67145120349:android:b22b10917a938d2c7b2bb4",
+        "android_client_info": {
+          "package_name": "com.example.kisan_mitra_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAuBHa8iDwoB5nk8XFZzhBaJx-RXLVaOgc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

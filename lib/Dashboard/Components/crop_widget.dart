@@ -27,7 +27,7 @@ class CropTile extends StatelessWidget {
             context,
             PageTransition(
                 child: CropDetailPage(
-                  plantId: plantList[index].plantId,
+                  plant: plantList[index],
                 ),
                 type: PageTransitionType.bottomToTop));
       },

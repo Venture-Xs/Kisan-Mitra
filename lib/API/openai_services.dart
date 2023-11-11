@@ -1,6 +1,4 @@
 import 'dart:convert';
-//env
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 //importing http for sending and receiving data over the internet
 import 'package:http/http.dart' as http;

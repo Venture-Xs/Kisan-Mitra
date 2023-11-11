@@ -238,43 +238,17 @@ class _DashboardState extends State<Dashboard> {
               ),
             ),
           ),
+
+          //Trending crops
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 12),
             height: size.height * .5,
             child: ListView.builder(
                 itemCount: _plantList.length,
                 scrollDirection: Axis.vertical,
-                physics: const BouncingScrollPhysics(),
                 itemBuilder: (BuildContext context, int index) {
-                  return GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                            context,
-                            PageTransition(
-                                child: const Placeholder(),
-                                type: PageTransitionType.bottomToTop));
-                      },
-                      child: CropTile(index: index, plantList: _plantList));
+                  return CropTile(index: index, plantList: _plantList);
                 }),
-          ),
-
-          //LineChart
-          Container(
-            padding: const EdgeInsets.only(left: 16, bottom: 20, top: 20),
-            child: Column(
-              children: [
-                const Text(
-                  'Line Chart',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 18.0,
-                  ),
-                ),
-
-                //LineChart
-                LineChartSample2()
-              ],
-            ),
           ),
         ],
       ),
