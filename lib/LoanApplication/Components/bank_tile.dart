@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:kisan_mitra_app/LoanApplication/Components/bank_list.dart';
+import 'package:kisan_mitra_app/LoanApplication/banking_option.dart';
 import 'package:kisan_mitra_app/pallete.dart';
 import 'package:page_transition/page_transition.dart';
 
@@ -24,7 +25,9 @@ class BankTile extends StatelessWidget {
         Navigator.push(
             context,
             PageTransition(
-                child: const Placeholder(),
+                child: Options(
+                  name: BankList[index].name,
+                ),
                 type: PageTransitionType.bottomToTop));
       },
 
