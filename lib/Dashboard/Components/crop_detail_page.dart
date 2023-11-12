@@ -2,16 +2,61 @@ import 'package:flutter/material.dart';
 import 'package:kisan_mitra_app/Dashboard/Components/plants.dart';
 import 'package:kisan_mitra_app/Widgets/linechart.dart';
 import 'package:kisan_mitra_app/pallete.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class CropDetailPage extends StatefulWidget {
-  final int plantId;
-  const CropDetailPage({Key? key, required this.plantId}) : super(key: key);
+  final Plant plant;
+  const CropDetailPage({Key? key, required this.plant}) : super(key: key);
 
   @override
   State<CropDetailPage> createState() => _CropDetailPageState();
 }
 
 class _CropDetailPageState extends State<CropDetailPage> {
+  final FirebaseFirestore firestore = FirebaseFirestore.instance;
+
+  final CollectionReference currentPrice =
+      FirebaseFirestore.instance.collection('market-price');
+
+  Future<void> getUserData() async {
+    print("Getting data");
+    QuerySnapshot querySnapshot = await currentPrice.get();
+    String crop = 'Wheat';
+    String state = 'Assam';
+
+    final allData = querySnapshot.docs
+        .where((doc) => doc.id.contains(crop))
+        .map((doc) => doc.data())
+        .toList();
+
+    List<Map<String, dynamic>> allPrices = [];
+
+    for (var data in allData) {
+      Map<String, dynamic> filteredData = data as Map<String, dynamic>;
+
+      List pricesList = filteredData.values.first
+          .where((item) => item['state'] == state)
+          .map((item) => {
+                'modal_price': item['modal_price'],
+                'min_price': item['min_price'],
+                'max_price': item['max_price']
+              })
+          .toList();
+
+      if (pricesList.isNotEmpty) {
+        allPrices.add(pricesList[0]);
+      }
+    }
+
+    print(allPrices);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getUserData();
+  }
+
   //Toggle Favorite button
   bool toggleIsFavorated(bool isFavorited) {
     return !isFavorited;
@@ -25,9 +70,6 @@ class _CropDetailPageState extends State<CropDetailPage> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-
-    //calling list of plants
-    List<Plant> _plantList = Plant.plantList;
 
     return Scaffold(
       body: SingleChildScrollView(
@@ -103,7 +145,7 @@ class _CropDetailPageState extends State<CropDetailPage> {
                             plantFeature: 'Rs 500',
                           ),
                           PlantFeature(
-                            title: 'Average Price',
+                            title: 'Modal Price',
                             plantFeature: 'Rs 750',
                           ),
                         ],
@@ -140,7 +182,7 @@ class _CropDetailPageState extends State<CropDetailPage> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                _plantList[widget.plantId].plantName,
+                                widget.plant.plantName,
                                 style: TextStyle(
                                   color: Pallete.primaryColor,
                                   fontWeight: FontWeight.bold,
@@ -174,10 +216,7 @@ class _CropDetailPageState extends State<CropDetailPage> {
                               Row(
                                 children: [
                                   Text(
-                                    _plantList[widget.plantId]
-                                            .rating
-                                            .toString() +
-                                        "%",
+                                    widget.plant.rating.toString() + "%",
                                     style: TextStyle(
                                       fontSize: 30.0,
                                       color: Pallete.primaryColor,
@@ -201,7 +240,7 @@ class _CropDetailPageState extends State<CropDetailPage> {
                       //description
                       Expanded(
                         child: Text(
-                          _plantList[widget.plantId].decription,
+                          widget.plant.decription,
                           textAlign: TextAlign.justify,
                           style: TextStyle(
                             height: 1.5,

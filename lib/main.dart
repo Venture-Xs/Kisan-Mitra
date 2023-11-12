@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
-
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 import 'package:kisan_mitra_app/home_page.dart';
 import 'package:kisan_mitra_app/pallete.dart';
 
 void main() async {
-  await dotenv.load(fileName: "lib/.env");
+  await WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    name: 'KisanMitra',
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const MyApp());
 }
 
